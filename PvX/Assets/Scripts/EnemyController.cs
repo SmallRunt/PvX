@@ -9,6 +9,9 @@ public class EnemyController : MonoBehaviour
     private Transform playerPos;
     public float startCD;
     private float shootCD;
+    
+    public int eHealth;
+    public GameObject keyFrag;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,8 +38,25 @@ public class EnemyController : MonoBehaviour
                 shootCD -= Time.deltaTime;
             }
 
-
+            if(eHealth <= 0)
+            {
+               
+                Destroy(gameObject);
+            }
         }
+    }
+
+    private void OnDestroy()
+    {
+        Instantiate(keyFrag, transform.position, transform.rotation);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("P2Projectile"))
+        {
+            eHealth -= 1;
+        }        
     }
 
     void shoot()

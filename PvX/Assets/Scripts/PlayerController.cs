@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Transform shootPos;
     public GameObject bulletPrefab;
+    public int KeyFrags;
     public float bulletSpeed;
+    public int Health;
     Vector2 movement;
   
     // Update is called once per frame
@@ -27,6 +29,11 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
+
+        if (Health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -39,5 +46,18 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab,shootPos.position,shootPos.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(shootPos.up * bulletSpeed, ForceMode2D.Impulse);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("P2Projectile"))
+        {
+            Health -= 1;
+        }
+
+        if (collision.gameObject.CompareTag("Key"))
+        {
+            KeyFrags += 1;
+        }
     }
 }

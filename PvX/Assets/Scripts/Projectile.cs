@@ -23,8 +23,7 @@ public class Projectile : MonoBehaviour
         }
 
         rb.velocity = transform.forward * bulletSpeed;
-        
-        
+   
     }
 
 }
