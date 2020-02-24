@@ -7,6 +7,9 @@ TagManager:
   - Projectile
   - P2Projectile
   - Key
+  - Enemy
+  - Bank
+  - Over
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Player
+  - Ground
   - 
   - 
   - 
