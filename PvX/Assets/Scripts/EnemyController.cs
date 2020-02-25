@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyController : MonoBehaviour
 {
@@ -14,10 +15,13 @@ public class EnemyController : MonoBehaviour
     public GameObject keyFrag;
     public AudioClip explosionSFX;
 
+    public Image fillImage;
+
     // Start is called before the first frame update
     void Start()
     {
         eHealth = 1f;
+        fillImage.fillAmount = eHealth;
         playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
@@ -29,7 +33,7 @@ public class EnemyController : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, chaseSpeed * Time.deltaTime);
         }
 
-        if (eHealth <= 0)
+        if (fillImage.fillAmount <= 0)
         {
             AudioSource.PlayClipAtPoint(explosionSFX, transform.position, 1f);
             Destroy(this.gameObject);
@@ -45,7 +49,8 @@ public class EnemyController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Projectile") || collision.gameObject.CompareTag("Player"))
         {
-            eHealth -= 0.5f;
+            fillImage.fillAmount -= 0.5f;
+            //eHealth -= 0.5f;
         }   
         
         if(collision.gameObject.CompareTag("Player"))
